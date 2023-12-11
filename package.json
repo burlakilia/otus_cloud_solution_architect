@@ -1,0 +1,15 @@
+{
+  "name": "otus_cloud_solution_architect",
+  "version": "1.0.0",
+  "description": "Учебные задания по курсу",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "report": "node vendor-report/scripts/report.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}
