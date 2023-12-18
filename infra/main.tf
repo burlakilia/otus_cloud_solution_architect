@@ -61,12 +61,6 @@ resource "yandex_storage_bucket" "paid-files" {
   secret_key = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
 
   bucket = "paid-files-${random_id.bucket_id.hex}"
-
-  grant {
-    id          = "ajeh11duqf94qs3n84f3"
-    type        = "CanonicalUser"
-    permissions = ["READ"]
-  }
 }
 
 resource "yandex_storage_object" "paid-object" {
