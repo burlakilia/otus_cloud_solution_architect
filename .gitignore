@@ -5,3 +5,4 @@ sa-secret.json
 */.terraform.*
 */terraform.*
 **/*.zip
+.DS_Store

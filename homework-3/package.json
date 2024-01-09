@@ -1,0 +1,14 @@
+{
+  "name": "homework-3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepare:bff": "cd src && zip ./bff.zip ./bff/* && cd ../",
+    "prepare:service": "cd src/service && zip ../service.zip ./*  && cd ../../",
+    "prepare": "npm run prepare:bff && npm run prepare:service",
+    "publish": "npm run prepare && terraform apply"
+  },
+  "author": "",
+  "license": "ISC"
+}
