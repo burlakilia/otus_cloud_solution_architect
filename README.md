@@ -19,5 +19,5 @@ npm i
 - [Задание 2: IAM](./homework-1)
 - [Задание 3: VPC](./homework-2)
 - [Задание 4: Services](./homework-3)
-
+- [Задание 5: СУБД](./homework-4)
 
