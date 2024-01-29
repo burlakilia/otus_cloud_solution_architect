@@ -1,0 +1,14 @@
+{
+  "name": "homework-5",
+  "version": "1.0.0",
+  "description": "Задача: Разработать приложение выдающее прогноз погоды и реализующее цепочку serverless functions для обработки событий или повторить демонстрацию с вебинара. Решение состоит из следующих компонентов:",
+  "main": "index.js",
+  "scripts": {
+    "prepare:context": "cd serverless/context && zip ./context.zip ./* && cd ../../",
+    "prepare:forecast": "cd serverless/forecast && zip ./forecast.zip ./* && cd ../../",
+    "prepare": "npm run prepare:context && npm run prepare:forecast",
+    "publish": "npm run prepare && terraform apply"
+  },
+  "author": "",
+  "license": "ISC"
+}
