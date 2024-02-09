@@ -6,3 +6,4 @@ sa-secret.json
 */terraform.*
 **/*.zip
 .DS_Store
+cloud_config.yaml

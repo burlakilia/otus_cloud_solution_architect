@@ -1,0 +1,7 @@
+spec:
+  containers:
+    - image: cr.yandex/crp12gsgj8shd4fskkjt/serverless:app
+      securityContext:
+        privileged: false
+      stdin: false
+      tty: false
