@@ -7,3 +7,4 @@ sa-secret.json
 **/*.zip
 .DS_Store
 cloud_config.yaml
+config.yaml

@@ -1,0 +1,8 @@
+core:
+  core_id: core_id
+  folder_id: folder
+  zone: ru-central1-a
+
+k8s:
+  instances_count: 1
+  instance_platform: standard-v2
