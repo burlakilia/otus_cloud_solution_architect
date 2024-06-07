@@ -12,6 +12,18 @@ resource "yandex_iam_service_account" "sa" {
   name      = "k8s-root-sa"
 }
 
+resource "yandex_iam_service_account" "s3acc" {
+  folder_id = var.folder_id
+  name      = "s3-storage-admin"
+}
+
+resource "yandex_resourcemanager_folder_iam_member" "sa-editor" {
+  folder_id = var.folder_id
+  role      = "storage.admin"
+  member    = "serviceAccount:${yandex_iam_service_account.s3acc.id}"
+}
+
+
 resource "yandex_iam_service_account" "sa_pusher" {
   folder_id = var.folder_id
   name      = "registry-pusher"

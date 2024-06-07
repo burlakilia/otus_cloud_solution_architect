@@ -3,6 +3,11 @@ output "k8s_sa_id" {
   value       = yandex_iam_service_account.sa.id
 }
 
+output "s3_sa_id" {
+  description = "S3 Service Account Id"
+  value       = yandex_iam_service_account.s3acc.id
+}
+
 output "k8s_sa_editor_role" {
   description = "Роль редактора, которая привязана к сервисному аккаунту"
   value       = yandex_resourcemanager_folder_iam_member.sa_editor.id

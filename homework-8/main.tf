@@ -31,7 +31,7 @@ module "k8s_network" {
   zone         = local.zone
 }
 
-module "k8s_account" {
+module "accounts" {
   source    = "./modules/account"
   folder_id = local.folder_id
 }
@@ -43,12 +43,20 @@ module "k8s_cluster" {
   vpc_id      = module.k8s_network.k8s_vpc_id
   sg_id       = module.k8s_network.k8s_sg_id
   zone        = local.zone
-  editor_role = module.k8s_account.k8s_sa_editor_role
-  puller_role = module.k8s_account.k8s_sa_images_puller_role
-  sa_id       = module.k8s_account.k8s_sa_id
+  editor_role = module.accounts.k8s_sa_editor_role
+  puller_role = module.accounts.k8s_sa_images_puller_role
+  sa_id       = module.accounts.k8s_sa_id
 
   instances_count   = local.instances_count
   instance_platform = local.instance_platform
+}
+
+module "s3_bucket" {
+  source = "./modules/s3"
+
+  folder_id = local.folder_id
+  bucket_name = "test"
+  s3scc_id = module.accounts.s3_sa_id
 }
 
 output "result" {
