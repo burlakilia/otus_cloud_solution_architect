@@ -8,6 +8,16 @@ output "s3_sa_id" {
   value       = yandex_iam_service_account.s3acc.id
 }
 
+output "ci_cd_id" {
+  description = "Аккаунт для интеграции с CI/CD"
+  value       = yandex_iam_service_account.ci_cd_acc.id
+}
+
+output "ci_cd_token" {
+  description = "Токен для авторизации ci_cd ролью"
+  value       = yandex_iam_service_account_static_access_key.ci-cd-static-key.access_key
+}
+
 output "k8s_sa_editor_role" {
   description = "Роль редактора, которая привязана к сервисному аккаунту"
   value       = yandex_resourcemanager_folder_iam_member.sa_editor.id

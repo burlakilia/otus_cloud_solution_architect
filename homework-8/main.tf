@@ -59,6 +59,18 @@ module "s3_bucket" {
   s3scc_id = module.accounts.s3_sa_id
 }
 
-output "result" {
-  value = "Для публикации образов используйте сервисный аккаунт ${module.k8s_account.k8s_sa_images_pusher_account}"
+resource "yandex_container_registry" "registry" {
+  name = "containers-registry"
+  folder_id = local.folder_id
+  labels = {
+    level = "infra"
+  }
+}
+
+output "token" {
+  value = "CLOUD_IAM_TOKEN: ${module.accounts.ci_cd_token}"
+}
+
+output "registry" {
+  value = "CLOUD_REGISTRY_ID: ${yandex_container_registry.registry.id}"
 }
