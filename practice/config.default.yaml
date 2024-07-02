@@ -1,0 +1,16 @@
+core:
+  cloud_id: core_id
+  folder_id: folder
+  zone: ru-central1-a
+
+k8s:
+  instances_count: 1
+  instance_platform: standard-v2
+
+s3:
+  public_s3_name: name_of_public_s3
+  configurations_s3_name: name_for_conf_bucket
+
+public:
+  js: "взять имя файла из папки public, он будет создан после комманды npm build"
+

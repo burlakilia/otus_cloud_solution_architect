@@ -8,3 +8,5 @@ sa-secret.json
 .DS_Store
 cloud_config.yaml
 config.yaml
+public
+s3

@@ -1,0 +1,66 @@
+html {
+    font-size: 10px !important;
+}
+
+body {
+    font-size: 15px !important;
+    font-family: SF Pro Display, Helvetica, Arial, sans-serif !important;
+    line-height: 1.42857143 !important;
+}
+
+.qh-report-table {
+    overflow-x: scroll;
+    margin-top: 18px;
+}
+
+.qh-report-root .ui.button {
+    font-size: 1.3rem;
+}
+
+.qh-report-root .ui.form {
+    font-size: 1.3rem;
+}
+
+.qh-report-root .ui.dropdown .menu > .item {
+    font-size: 1.3rem;
+}
+
+.qh-report-root .ui.segments .segment, .qh-report-root .ui.segment  {
+    font-size: 1.3rem;
+}
+
+.qh-report-root .ui.table  {
+    font-size: 1.3rem;
+}
+
+.qh-report-root .normal-text {
+    font-size: 14px;
+}
+.qh-report-root .ui.placeholder.segment .qh-report-filters {
+    display: flex;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.qh-report-root .ui.placeholder.segment .qh-report-filters  .button  {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.qh-report-root .ui.placeholder.segment .filter-button.button {
+    max-width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.qh-report-root {
+    margin: 12px;
+}
+
+.qh-report-root .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
