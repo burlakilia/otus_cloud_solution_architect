@@ -4,7 +4,7 @@ terraform {
       source = "yandex-cloud/yandex"
     }
   }
-  required_version = ">= 0.13"
+  required_version = ">= 0.123.0"
 }
 
 provider "yandex" {
@@ -21,9 +21,15 @@ locals {
   k8s_instances_count   = local.config.k8s.instances_count
   k8s_instance_platform = local.config.k8s.instance_platform
 
-  public_s3_name = local.config.s3.public_s3_name
+  public_s3_name    = local.config.s3.public_s3_name
   configurations_s3 = local.config.s3.configurations_s3_name
-  js_file        = local.config.public.js
+  js_file           = local.config.public.js
+
+  user_login = local.config.creator.user_login
+  user_pwd   = local.config.creator.user_pwd
+
+  gitlab_token = local.config.creator.gitlab_token
+  gitlab_host  = local.config.creator.gitlab_host
 }
 
 module "accounts" {
@@ -37,6 +43,7 @@ module "static" {
   bucket_name = local.public_s3_name
   s3scc_id    = module.accounts.s3_sa_id
   js_file     = local.js_file
+  api_id      = module.creator.api_id
 }
 
 module "configurations" {
@@ -44,6 +51,23 @@ module "configurations" {
   folder_id   = local.folder_id
   bucket_name = local.configurations_s3
   s3scc_id    = module.accounts.s3_sa_id
+}
+
+module "network" {
+  source       = "./modules/network"
+  zone         = local.zone
+  folder_id    = local.folder_id
+  network_name = "net"
+  network_desc = "Общая сеть решения"
+}
+
+module "creator" {
+  source       = "./modules/creator"
+  user_login   = local.user_login
+  user_pwd     = local.user_pwd
+  folder_id    = local.folder_id
+  gitlab_token = local.gitlab_token
+  gitlab_host  = local.gitlab_host
 }
 
 output "creator-site" {

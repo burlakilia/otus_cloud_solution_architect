@@ -4,7 +4,7 @@ terraform {
       source = "yandex-cloud/yandex"
     }
   }
-  required_version = ">= 0.13"
+  required_version = ">= 0.123.0"
 }
 
 resource "yandex_iam_service_account" "sa" {

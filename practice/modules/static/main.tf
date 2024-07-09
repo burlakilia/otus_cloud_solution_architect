@@ -4,7 +4,7 @@ terraform {
       source = "yandex-cloud/yandex"
     }
   }
-  required_version = ">= 0.13"
+  required_version = ">= 0.123.0"
 }
 
 resource "random_id" "bucket_id" {
@@ -43,4 +43,12 @@ resource "yandex_storage_object" "site-source" {
   bucket     = yandex_storage_bucket.s3-storage.bucket
   key        = var.js_file
   source     = "./public/${var.js_file}"
+}
+
+resource "yandex_storage_object" "config-json" {
+  access_key = yandex_iam_service_account_static_access_key.sa-static-key.access_key
+  secret_key = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
+  bucket     = yandex_storage_bucket.s3-storage.bucket
+  key        = "config.js"
+  content     = "window.REST_APP_ID='${var.api_id}';"
 }

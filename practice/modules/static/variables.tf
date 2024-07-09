@@ -17,3 +17,8 @@ variable "js_file" {
   type        = string
   description = "Имя js файла приложения"
 }
+
+variable "api_id" {
+  type  = string
+  description = "Идентификатор api, для запросов"
+}

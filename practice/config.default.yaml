@@ -14,3 +14,8 @@ s3:
 public:
   js: "взять имя файла из папки public, он будет создан после комманды npm build"
 
+creator:
+  user_login: test
+  user_pwd: test
+  gitlab_token: "персональный токен из gitlab"
+  gitlab_host: "https://gitlab.com/ например"

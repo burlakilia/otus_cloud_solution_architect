@@ -5,7 +5,11 @@
   "main": "public/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "prepare:creator-auth": "cd serverless/creator-auth && zip ./creator-auth.zip ./* && cd ../../",
+    "prepare:creator-gitlab": "cd serverless/creator-gitlab && zip ./creator-gitlab.zip ./* && cd ../../",
+    "prepare": "npm run prepare:creator-auth && npm run prepare:creator-gitlab",
+    "start": "webpack serve --hot --port 8080;"
   },
   "author": "",
   "license": "ISC",
@@ -65,7 +69,7 @@
     "react-date-range": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
-    "react-router-dom": "6.16.0",
+    "react-router-dom": "^6.16.0",
     "save": "2.9.0",
     "semantic-ui-css": "2.5.0",
     "semantic-ui-react": "2.1.5",
