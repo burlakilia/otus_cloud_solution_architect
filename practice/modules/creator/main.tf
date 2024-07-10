@@ -58,6 +58,8 @@ resource "yandex_function" "creator-gitlab" {
 
   environment = {
     JWT_PRIVATE_KEY: random_string.jwt_private_key.result
+    REGISTRY_ID: var.registry_id
+    CI_CD_TOKEN: var.ci_cd_token
   }
 
   content {

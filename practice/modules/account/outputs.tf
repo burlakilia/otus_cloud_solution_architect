@@ -15,7 +15,7 @@ output "ci_cd_id" {
 
 output "ci_cd_token" {
   description = "Токен для авторизации ci_cd ролью"
-  value       = yandex_iam_service_account_static_access_key.ci-cd-static-key.access_key
+  value       = local.templatefile
 }
 
 output "k8s_sa_editor_role" {

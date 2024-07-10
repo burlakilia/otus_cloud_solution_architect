@@ -7,6 +7,17 @@ terraform {
   required_version = ">= 0.123.0"
 }
 
+locals {
+  templatefile = templatefile("${path.module}/ci_cd_key.tpl.json", {
+    key_id             = yandex_iam_service_account_key.ci-cd-static-key.id
+    service_account_id = yandex_iam_service_account_key.ci-cd-static-key.service_account_id
+    created_at         = yandex_iam_service_account_key.ci-cd-static-key.created_at
+    key_algorithm      = yandex_iam_service_account_key.ci-cd-static-key.key_algorithm
+    public_key         = jsonencode(yandex_iam_service_account_key.ci-cd-static-key.public_key)
+    private_key        = jsonencode(yandex_iam_service_account_key.ci-cd-static-key.private_key)
+  })
+}
+
 resource "yandex_iam_service_account" "sa" {
   folder_id = var.folder_id
   name      = "k8s-root-sa"
@@ -36,7 +47,7 @@ resource "yandex_resourcemanager_folder_iam_binding" "ci-cd-acc-role" {
   role  = "container-registry.images.pusher"
 }
 
-resource "yandex_iam_service_account_static_access_key" "ci-cd-static-key" {
+resource "yandex_iam_service_account_key" "ci-cd-static-key" {
   service_account_id = yandex_iam_service_account.ci-cd-acc.id
   description        = "static access key for object storage"
 }

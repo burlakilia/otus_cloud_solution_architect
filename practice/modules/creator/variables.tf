@@ -22,3 +22,13 @@ variable "gitlab_host" {
   type        = string
   description = "хост gitlab"
 }
+
+variable "registry_id" {
+  type        = string
+  description = "id registry"
+}
+
+variable "ci_cd_token" {
+  type        = string
+  description = "токен для авторизации со стороны ci_cd"
+}

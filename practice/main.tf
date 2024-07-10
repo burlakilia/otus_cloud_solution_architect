@@ -68,6 +68,13 @@ module "creator" {
   folder_id    = local.folder_id
   gitlab_token = local.gitlab_token
   gitlab_host  = local.gitlab_host
+  registry_id  = module.infra.registry_id
+  ci_cd_token  = module.accounts.ci_cd_token
+}
+
+module "infra" {
+  source    = "./modules/infra"
+  folder_id = local.folder_id
 }
 
 output "creator-site" {

@@ -9,7 +9,14 @@ const jwt = require('jsonwebtoken');
 module.exports.handler = async function (e, ctx) {
     const str = e.isBase64Encoded ? Buffer.from(e.body, 'base64').toString() : e.body;
     const {token, appName, appDesc} = JSON.parse(str);
-    const data = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+    const {
+        JWT_PRIVATE_KEY,
+        REGISTRY_ID,
+        CI_CD_TOKEN,
+    } = process.env;
+
+    const data = jwt.verify(token, JWT_PRIVATE_KEY);
+
 
     const project = await fetch(`${data.gitlabHost}/api/v4/projects`, {
         method: 'POST',
@@ -40,7 +47,7 @@ module.exports.handler = async function (e, ctx) {
         },
         body: new URLSearchParams({
             key: 'CLOUD_IAM_TOKEN',
-            value: 'test'
+            value: CI_CD_TOKEN
         }),
     }).then(res => res.json());
 
@@ -52,7 +59,7 @@ module.exports.handler = async function (e, ctx) {
         },
         body: new URLSearchParams({
             key: 'CLOUD_REGISTRY_ID',
-            value: 'test'
+            value: REGISTRY_ID
         }),
     }).then(res => res.json());
 
