@@ -1,0 +1,23 @@
+image: docker:stable
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+
+services:
+  - name: docker:24.0-dind
+    alias: docker
+
+stages:
+  - publish
+
+publish:
+  stage: publish
+  only:
+    refs:
+      - main
+  script:
+    - echo $CLOUD_IAM_TOKEN > key.json
+    - cat key.json | docker login --username json_key --password-stdin cr.yandex
+    - docker build --no-cache -t cr.yandex/$CLOUD_REGISTRY_ID/$APP_NAME:$CI_COMMIT_SHA -f Dockerfile .
+    - docker push cr.yandex/$CLOUD_REGISTRY_ID/$APP_NAME:$CI_COMMIT_SHA

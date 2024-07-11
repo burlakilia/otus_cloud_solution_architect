@@ -1,10 +1,21 @@
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
-/**
- * {
- *     "body": "{\"login\": \"test\",\"pwd\":\"test\"}"
- * }
- */
+function addFile(file, name, data, project) {
+    return fetch(`${data.gitlabHost}/api/v4/projects/${project.id}/repository/files/${name}`, {
+        method: 'POST',
+        headers: {
+            'PRIVATE-TOKEN': data.gitlabToken,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            branch: 'main',
+            content: fs.readFileSync('./' + file).toString(),
+            commit_message: 'init add file: ' + name
+        }),
+    }).then(res => res.json());
+
+}
 
 module.exports.handler = async function (e, ctx) {
     const str = e.isBase64Encoded ? Buffer.from(e.body, 'base64').toString() : e.body;
@@ -16,7 +27,6 @@ module.exports.handler = async function (e, ctx) {
     } = process.env;
 
     const data = jwt.verify(token, JWT_PRIVATE_KEY);
-
 
     const project = await fetch(`${data.gitlabHost}/api/v4/projects`, {
         method: 'POST',
@@ -51,6 +61,18 @@ module.exports.handler = async function (e, ctx) {
         }),
     }).then(res => res.json());
 
+    const varName = await fetch(`${data.gitlabHost}/api/v4/projects/${project.id}/variables`, {
+        method: 'POST',
+        headers: {
+            'PRIVATE-TOKEN': data.gitlabToken,
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            key: 'APP_NAME',
+            value: appName
+        }),
+    }).then(res => res.json());
+
     const varRegistryId = await fetch(`${data.gitlabHost}/api/v4/projects/${project.id}/variables`, {
         method: 'POST',
         headers: {
@@ -63,12 +85,18 @@ module.exports.handler = async function (e, ctx) {
         }),
     }).then(res => res.json());
 
+    const file2 = await addFile('Dockerfile', 'Dockerfile', data, project);
+    const file3 = await addFile('server.js', 'index.js', data, project);
+    const file1 = await addFile('gitlab-ci.yml', '.gitlab-ci.yml', data, project);
+
     return {
         statusCode: 200,
         body: {
+            varName,
             project,
             varToken,
             varRegistryId,
+            filesResult: [file1, file2, file3],
         },
     };
 }

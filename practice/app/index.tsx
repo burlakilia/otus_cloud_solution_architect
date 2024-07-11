@@ -101,5 +101,5 @@ function Login() {
 ReactDOM.render(
     // @ts-ignore
     <App/>,
-    document.body
+    document.body.querySelector('.root')
 );
