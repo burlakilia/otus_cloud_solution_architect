@@ -8,7 +8,8 @@
     "build": "webpack --mode=production",
     "prepare:creator-auth": "cd serverless/creator-auth && zip ./creator-auth.zip ./* && cd ../../",
     "prepare:creator-gitlab": "cd serverless/creator-gitlab && zip ./creator-gitlab.zip ./* && cd ../../",
-    "prepare": "npm run prepare:creator-auth && npm run prepare:creator-gitlab",
+    "prepare:creator-config": "cd serverless/creator-config && zip ./creator-config.zip ./* && cd ../../",
+    "prepare": "npm run prepare:creator-auth && npm run prepare:creator-gitlab && npm run prepare:creator-config",
     "start": "webpack serve --hot --port 8080;"
   },
   "author": "",

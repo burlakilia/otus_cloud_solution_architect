@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: "{APP_NAME}rs"
+  labels:
+    app: nodejs
+    tier: user_service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: user_service
+  template:
+    metadata:
+      labels:
+        tier: user_service
+    spec:
+      containers:
+        - name: "{APP_NAME}"
+          image: "cr.yandex/{REGISTRY_ID}/{APP_NAME}:{APP_VERSION}"

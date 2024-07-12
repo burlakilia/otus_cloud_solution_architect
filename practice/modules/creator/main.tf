@@ -42,6 +42,10 @@ resource "yandex_function" "creator-auth" {
   }
 }
 
+resource "yandex_iam_service_account_api_key" "creator-api-key" {
+  service_account_id = yandex_iam_service_account.creator-sa.id
+  description        = "Авторизация для gitlab worker"
+}
 
 # Creator Gitlab Serverless
 resource "yandex_function" "creator-gitlab" {
@@ -60,10 +64,36 @@ resource "yandex_function" "creator-gitlab" {
     JWT_PRIVATE_KEY: random_string.jwt_private_key.result
     REGISTRY_ID: var.registry_id
     CI_CD_TOKEN: var.ci_cd_token
+    API_TOKEN: yandex_iam_service_account_api_key.creator-api-key.secret_key,
+    UPDATER_ID: yandex_function.creator-config.id
   }
 
   content {
     zip_filename = "./serverless/creator-gitlab/creator-gitlab.zip"
+  }
+}
+
+resource "yandex_function" "creator-config" {
+  name               = "creator-config"
+  description        = "Сервис отвечает за генерацию конфигов"
+  user_hash          = "service"
+  runtime            = "nodejs18"
+  entrypoint         = "index.handler"
+  memory             = "128"
+  execution_timeout  = "60"
+
+  environment = {
+    S3_ACCESS_KEY: var.s3_access_key
+    S3_SECRET_KEY: var.s3_secret_key
+    BUCKET: var.config_bucket_name
+    REGISTRY_ID: var.registry_id
+  }
+
+  service_account_id = yandex_iam_service_account.creator-sa.id
+  tags               = ["creator", "kube"]
+
+  content {
+    zip_filename = "./serverless/creator-config/creator-config.zip"
   }
 }
 
@@ -83,6 +113,13 @@ resource "yandex_function_iam_binding" "creator-gitlab-iam" {
   ]
 }
 
+resource "yandex_function_iam_binding" "creator-config-iam" {
+  function_id = yandex_function.creator-config.id
+  role        = "functions.functionInvoker"
+  members = [
+    "serviceAccount:${yandex_iam_service_account.creator-sa.id}",
+  ]
+}
 
 resource "yandex_api_gateway" "api" {
   name = "public-api"

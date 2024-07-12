@@ -24,6 +24,8 @@ module.exports.handler = async function (e, ctx) {
         JWT_PRIVATE_KEY,
         REGISTRY_ID,
         CI_CD_TOKEN,
+        API_TOKEN,
+        UPDATER_ID,
     } = process.env;
 
     const data = jwt.verify(token, JWT_PRIVATE_KEY);
@@ -73,6 +75,18 @@ module.exports.handler = async function (e, ctx) {
         }),
     }).then(res => res.json());
 
+    const varApiToken = await fetch(`${data.gitlabHost}/api/v4/projects/${project.id}/variables`, {
+        method: 'POST',
+        headers: {
+            'PRIVATE-TOKEN': data.gitlabToken,
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            key: 'API_HEADERS',
+            value: `Authorization: Api-Key ${API_TOKEN}`
+        }),
+    }).then(res => res.json());
+
     const varRegistryId = await fetch(`${data.gitlabHost}/api/v4/projects/${project.id}/variables`, {
         method: 'POST',
         headers: {
@@ -82,6 +96,18 @@ module.exports.handler = async function (e, ctx) {
         body: new URLSearchParams({
             key: 'CLOUD_REGISTRY_ID',
             value: REGISTRY_ID
+        }),
+    }).then(res => res.json());
+
+    const varUpdaterId = await fetch(`${data.gitlabHost}/api/v4/projects/${project.id}/variables`, {
+        method: 'POST',
+        headers: {
+            'PRIVATE-TOKEN': data.gitlabToken,
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            key: 'UPDATER_ID',
+            value: UPDATER_ID
         }),
     }).then(res => res.json());
 
@@ -96,6 +122,8 @@ module.exports.handler = async function (e, ctx) {
             project,
             varToken,
             varRegistryId,
+            varApiToken,
+            varUpdaterId,
             filesResult: [file1, file2, file3],
         },
     };

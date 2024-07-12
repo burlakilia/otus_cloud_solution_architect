@@ -21,3 +21,4 @@ publish:
     - cat key.json | docker login --username json_key --password-stdin cr.yandex
     - docker build --no-cache -t cr.yandex/$CLOUD_REGISTRY_ID/$APP_NAME:$CI_COMMIT_SHA -f Dockerfile .
     - docker push cr.yandex/$CLOUD_REGISTRY_ID/$APP_NAME:$CI_COMMIT_SHA
+    - wget --post-data="$APP_NAME_$,CI_COMMIT_SHA" --header="$API_HEADERS" https://functions.yandexcloud.net/$UPDATER_ID

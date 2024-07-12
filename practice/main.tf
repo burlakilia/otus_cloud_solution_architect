@@ -70,6 +70,9 @@ module "creator" {
   gitlab_host  = local.gitlab_host
   registry_id  = module.infra.registry_id
   ci_cd_token  = module.accounts.ci_cd_token
+  s3_access_key = module.configurations.access_key
+  s3_secret_key = module.configurations.secret_key
+  config_bucket_name = local.configurations_s3
 }
 
 module "infra" {

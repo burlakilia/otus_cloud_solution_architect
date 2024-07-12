@@ -32,3 +32,19 @@ variable "ci_cd_token" {
   type        = string
   description = "токен для авторизации со стороны ci_cd"
 }
+
+variable "s3_access_key" {
+  type        = string
+  description = "access key для доступа к s3"
+}
+
+variable "s3_secret_key" {
+  type        = string
+  description = "secret для доступа к s3"
+}
+
+
+variable "config_bucket_name" {
+  type        = string
+  description = "бакет с конфигами"
+}
