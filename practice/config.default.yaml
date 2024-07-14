@@ -19,3 +19,7 @@ creator:
   user_pwd: test
   gitlab_token: "персональный токен из gitlab"
   gitlab_host: "https://gitlab.com/ например"
+
+db:
+  admin_user: admin
+  admin_pwd: admin_pwd

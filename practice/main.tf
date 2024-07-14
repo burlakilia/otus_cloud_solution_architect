@@ -30,6 +30,9 @@ locals {
 
   gitlab_token = local.config.creator.gitlab_token
   gitlab_host  = local.config.creator.gitlab_host
+
+  admin_user = local.config.admin_user
+  admin_pwd = local.config.admin_pwd
 }
 
 module "accounts" {
@@ -86,6 +89,17 @@ module "infra" {
   editor_role = module.accounts.k8s_sa_editor_role
   puller_role = module.accounts.k8s_sa_images_puller_role
   zone        = local.zone
+}
+
+module "dbs" {
+  source    = "./modules/dbs"
+
+  folder_id     = local.folder_id
+  net_id        = module.network.net_id
+  root_user     = local.admin_user
+  root_user_pwd = local.admin_pwd
+  vpc_id        = module.network.k8s_vpc_id
+  zone          = local.zone
 }
 
 output "creator-site" {
