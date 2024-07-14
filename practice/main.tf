@@ -62,22 +62,30 @@ module "network" {
 }
 
 module "creator" {
-  source       = "./modules/creator"
-  user_login   = local.user_login
-  user_pwd     = local.user_pwd
-  folder_id    = local.folder_id
-  gitlab_token = local.gitlab_token
-  gitlab_host  = local.gitlab_host
-  registry_id  = module.infra.registry_id
-  ci_cd_token  = module.accounts.ci_cd_token
-  s3_access_key = module.configurations.access_key
-  s3_secret_key = module.configurations.secret_key
+  source             = "./modules/creator"
+  user_login         = local.user_login
+  user_pwd           = local.user_pwd
+  folder_id          = local.folder_id
+  gitlab_token       = local.gitlab_token
+  gitlab_host        = local.gitlab_host
+  registry_id        = module.infra.registry_id
+  ci_cd_token        = module.accounts.ci_cd_token
+  s3_access_key      = module.configurations.access_key
+  s3_secret_key      = module.configurations.secret_key
   config_bucket_name = local.configurations_s3
 }
 
 module "infra" {
   source    = "./modules/infra"
   folder_id = local.folder_id
+
+  net_id      = module.network.net_id
+  vpc_id      = module.network.k8s_vpc_id
+  sg_id       = module.network.k8s_sg_id
+  sa_id       = module.accounts.k8s_sa_id
+  editor_role = module.accounts.k8s_sa_editor_role
+  puller_role = module.accounts.k8s_sa_images_puller_role
+  zone        = local.zone
 }
 
 output "creator-site" {

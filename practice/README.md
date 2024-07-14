@@ -1,6 +1,7 @@
 # Практическая работа
 
-Дизайн проект: https://app.diagrams.net/?libs=c4#D%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0.drawio#%7B%22pageId%22%3A%22l0RS8J0323dWHU8eCK-F%22%7D
+Дизайн проект: https://drive.google.com/file/d/1FeghU-8gXN-uMUlCtykyHHItw49r5Ur-/view
+Техническое решение: https://gainful-adapter-838.notion.site/92b6243927a94a04a5af566450ffc801
 
 ## Настройка
 
@@ -12,3 +13,4 @@
 4) Добавить имя созданого **js** файла в `config.yaml`
 5) Запустить деплой `terraform apply`
 6) Настроить **s3fs** для работы с файлами конфигурациями https://yandex.cloud/ru/docs/storage/tools/s3fs
+7) Перейти в web интерфес и создать свое первое приложение

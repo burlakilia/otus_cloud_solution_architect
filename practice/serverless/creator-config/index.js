@@ -17,19 +17,16 @@ module.exports.handler = async function (e, ctx) {
             secretAccessKey: S3_SECRET_KEY,
         },
         Bucket: BUCKET,
-        debug: true,
     });
 
     const [APP_NAME, APP_VERSION] = str.split(',');
 
-    const file = fs.readFileSync('./rs.tpl.yml').toString();
+    const tpl = fs.readFileSync('./rs.tpl.yml').toString();
 
-    file
+    const file = tpl
         .replace(/\{APP_NAME}/g, APP_NAME)
         .replace(/\{APP_VERSION}/g, APP_VERSION)
         .replace(/\{REGISTRY_ID}/g, REGISTRY_ID)
-
-    console.log(file)
 
     const upload = await s3.Upload(
         {
