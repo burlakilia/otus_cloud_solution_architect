@@ -29,3 +29,9 @@ variable "cidr_k8s" {
   default     = "10.2.0.0/16"
   description = "CIDR для приватной сети"
 }
+
+variable "cidr_dbs" {
+  type        = string
+  default     = "10.3.0.0/16"
+  description = "CIDR для приватной сети"
+}

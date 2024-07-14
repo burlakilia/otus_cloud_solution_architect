@@ -31,6 +31,14 @@ resource "yandex_vpc_subnet" "vpc_k8s" {
   zone           = var.zone
 }
 
+resource "yandex_vpc_subnet" "dbs_vpc" {
+  name           = "dbs-zone"
+  description    = "Зона для dbs"
+  network_id     = yandex_vpc_network.net[0].id
+  v4_cidr_blocks = [var.cidr_dbs]
+  zone           = var.zone
+}
+
 resource "yandex_vpc_security_group" "regional-k8s-sg" {
   name        = "regional-k8s-sg"
   description = "Групповые правила для k8s сети."

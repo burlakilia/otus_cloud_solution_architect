@@ -98,7 +98,7 @@ module "dbs" {
   net_id        = module.network.net_id
   root_user     = local.admin_user
   root_user_pwd = local.admin_pwd
-  vpc_id        = module.network.k8s_vpc_id
+  vpc_id        = module.network.dbs_vpc_id
   zone          = local.zone
 }
 

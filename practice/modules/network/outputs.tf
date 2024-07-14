@@ -17,3 +17,8 @@ output "k8s_vpc_id" {
   description = "K8S vpc id"
   value       = yandex_vpc_subnet.vpc_k8s.id
 }
+
+output "dbs_vpc_id" {
+  description = "DBS vpc id"
+  value       = yandex_vpc_subnet.dbs_vpc.id
+}
