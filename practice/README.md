@@ -2,9 +2,11 @@
 
 ## Дизайн проект
 
-![alt burlak_practice](https://drive.google.com/file/d/1FeghU-8gXN-uMUlCtykyHHItw49r5Ur-/view)
+https://drive.google.com/file/d/1FeghU-8gXN-uMUlCtykyHHItw49r5Ur-/view
 
-Техническое решение: https://gainful-adapter-838.notion.site/92b6243927a94a04a5af566450ffc801
+## Техническое решение
+
+https://gainful-adapter-838.notion.site/92b6243927a94a04a5af566450ffc801
 
 ## Настройка
 
